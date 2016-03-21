@@ -1,0 +1,24 @@
+## Reference
+From [clang docs](http://clang.llvm.org/docs/AttributeReference.html#nonnull):
+> "[…] the compiler will produce a warning if it sees a literal null […]" 
+
+http://modocache.io/clang-warn-nullable-to-nonnull-conversion
+
+  ~/Downloads/checker-278/bin/scan-build \                                                                                                      ~/Desktop
+  clang -g -fobjc-arc -Wall -Wnullable-to-nonnull-conversion -framework Foundation \
+  -Xclang \
+  -analyzer-config \
+  -Xclang mode=shallow \
+  -Xclang \
+  -analyzer-checker \
+  -Xclang nullability.NullPassedToNonnull \
+  -Xclang \
+  -analyzer-checker \
+  -Xclang nullability.NullReturnedFromNonnull \
+  -Xclang \
+  -analyzer-checker \
+  -Xclang nullability.NullableDereferenced \
+  -Xclang \
+  -analyzer-checker \
+  -Xclang nullability.NullablePassedToNonnull \
+  -o nonnull-warning nonnull-warning.m
